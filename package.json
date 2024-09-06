@@ -1,0 +1,26 @@
+{
+  "name": "jscform",
+  "private": true,
+  "description": "Json Schema Form Project",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
+  },
+  "author": "Sudhir Yelikar",
+  "license": "MIT",
+  "packageManager": "npm@10.8.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "turbo": "^2.1.1"
+  }
+}
