@@ -1,8 +1,7 @@
 {
-  "name": "jscform",
+  "name": "main-jscform",
   "private": true,
   "description": "Json Schema Form Project",
-  "main": "dist/index.js",
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean",
@@ -14,11 +13,7 @@
   },
   "author": "Sudhir Yelikar",
   "license": "MIT",
-  "packageManager": "npm@10.8.2",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@10.1.0",
   "devDependencies": {
     "prettier": "^3.3.3",
     "turbo": "^2.1.1"

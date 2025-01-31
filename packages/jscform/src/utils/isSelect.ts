@@ -1,5 +1,5 @@
 import isConstant from './isConstant';
-import { FormContextType, JSONSchema, ValidatorType } from './types';
+import { JSONSchema, ValidatorType } from './types';
 import retrieveSchema from './retrieveSchema';
 
 /** Checks to see if the `schema` combination represents a select

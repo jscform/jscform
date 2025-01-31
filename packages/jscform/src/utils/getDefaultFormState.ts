@@ -10,7 +10,7 @@ import isFixedItems from './isFixedItems';
 import mergeDefaultsWithFormData from './mergeDefaultsWithFormData';
 import mergeObjects from './mergeObjects';
 import mergeSchemas from './mergeSchemas';
-import {FormContextType, GenericObjectType, JSONSchema, ValidatorType,} from './types';
+import {GenericObjectType, JSONSchema, ValidatorType,} from './types';
 import isMultiSelect from './isMultiSelect';
 import retrieveSchema, {resolveDependencies} from './retrieveSchema';
 import pMap from "p-map";
