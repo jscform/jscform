@@ -1,8 +1,10 @@
 {
     "type": "object",
     "properties": {
-        "field1": {
-            "type": "string"
+        "name": {
+            "type": "string",
+            "x_component": "InputText",
+            "default": "John Doe"
         }
     }
 }
