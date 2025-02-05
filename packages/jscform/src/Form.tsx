@@ -25,7 +25,7 @@ export function Form({ schema, data = {}, ctx, onSubmit }: FormProps) {
     return (
         <FormProvider data={data} schema={schema} _ctx={ctx || {}}>
             <form onSubmit={handleSubmit}>
-                <DynamicUIComponent data={data} />
+                <DynamicUIComponent schema={schema} rootSchema={schema} data={data} />
             </form>
         </FormProvider>
     );
