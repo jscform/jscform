@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
-import {FormProvider} from "./FormContext";
-import {FormEvent} from "react";
+import React, { FormEvent } from "react";
+import { FormProvider } from "./FormContext";
+import DynamicUIComponent from "./components/DynamicUIComponent";
 
 export interface FormProps {
     schema: Record<string, any>;
@@ -13,7 +13,7 @@ export interface FormProps {
     onChange?: (data: Record<string, any>) => void;
 }
 
-export function Form({schema, data = {}, ctx, onSubmit}: FormProps) {
+export function Form({ schema, data = {}, ctx, onSubmit }: FormProps) {
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
@@ -23,9 +23,9 @@ export function Form({schema, data = {}, ctx, onSubmit}: FormProps) {
     }
 
     return (
-        <FormProvider data={data} schema={schema} ctx={ctx || {}}>
+        <FormProvider data={data} schema={schema} _ctx={ctx || {}}>
             <form onSubmit={handleSubmit}>
-                This is form!
+                <DynamicUIComponent data={data} />
             </form>
         </FormProvider>
     );

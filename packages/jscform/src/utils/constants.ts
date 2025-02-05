@@ -19,3 +19,4 @@ export const REQUIRED_KEY = 'required';
 export const SUBMIT_BTN_OPTIONS_KEY = 'submitButtonOptions';
 export const REF_KEY = '$ref';
 export const ROOT_SCHEMA_PREFIX = '__rootSchema';
+export const X_UICOMPONENT = 'x_uicomponent'
