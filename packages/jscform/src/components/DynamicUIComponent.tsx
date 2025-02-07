@@ -6,13 +6,14 @@ import {PROPERTIES_KEY, UI_WIDGET} from "../utils/constants";
 import {useForm} from "../contexts/FormContext";
 import {globalRegistry} from "../createRegistry";
 
-interface DynamicUIomponentProps {
+interface DynamicUIComponentProps {
     schema: JSONSchema;
-    schemaKey?: string;
+    schemaKey: string;
+    key: string;
     children?: ReactElement;
 }
 
-export default function DynamicUIComponent({schema, schemaKey = ""}: DynamicUIomponentProps) {
+export default function DynamicUIComponent({schema, schemaKey = ""}: DynamicUIComponentProps) {
     const [currentSchema, setCurrentSchema] = useState<JSONSchema>(schema);
     const form = useForm(schemaKey);
     useDeepCompareEffect(() => {
@@ -33,10 +34,11 @@ export default function DynamicUIComponent({schema, schemaKey = ""}: DynamicUIom
         if (!Widget) {
             throw Error(`Widget "${currentSchema[UI_WIDGET]}" not found in registry`);
         }
-        return <Widget schema={currentSchema} schemaKey={schemaKey}/>
+        return <Widget name={schemaKey} {...schema}></Widget>
     }
-    const {widget} = currentSchema[PROPERTIES_KEY];
-    const ContainerComponent = globalRegistry[widget] || React.Fragment;
+    console.log("container ui >>>> ", { currentSchema, schemaKey})
+    const uiWidget = currentSchema[UI_WIDGET];
+    const ContainerComponent = globalRegistry[uiWidget] || React.Fragment;
     const childComponents = []
     for (const property of Object.keys(currentSchema[PROPERTIES_KEY])) {
         childComponents.push(<DynamicUIComponent

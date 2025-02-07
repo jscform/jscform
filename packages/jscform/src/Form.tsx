@@ -12,6 +12,6 @@ export interface FormProps {
 
 export function Form({ schema, data, context }: FormProps) {
     return <FormProvider data={data} schema={schema} context={context}>
-        <DynamicUIComponent schema={schema} />
+        <DynamicUIComponent schema={schema} key={""} schemaKey={""} />
     </FormProvider>
 }

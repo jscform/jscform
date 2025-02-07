@@ -1,9 +1,7 @@
-import React from "react";
-
 export let globalRegistry: Registry = {};
 
 export interface Registry {
-    [key: string]: React.ElementType;
+    [key: string]: any;
 }
 export function createRegistry(registry: Registry) {
     globalRegistry = registry

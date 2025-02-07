@@ -1,10 +1,27 @@
 {
     "type": "object",
+    "ui:widget": "Col3Layout",
     "properties": {
-        "name": {
+        "firstName": {
+            "title": "First Name",
             "type": "string",
-            "x_component": "InputText",
-            "default": "John Doe"
+            "ui:widget": "Input",
+            "default": "John"
+        },
+        "middleName": {
+            "title": "Middle Name",
+            "type": "string",
+            "ui:widget": "Input",
+            "default": "S."
+        },
+        "lastName": {
+            "title": "Last Name",
+            "type": "string",
+            "ui:widget": "Input",
+            "default": "Doe"
         }
-    }
+    },
+    "required": [
+        "lastName"
+    ]
 }
