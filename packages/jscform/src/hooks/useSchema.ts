@@ -1,4 +1,4 @@
-import {useContext, useSyncExternalStore} from "react";
+import {useContext, useSyncExternalStore, useMemo} from "react";
 import {FormContext} from "../contexts/FormContext";
 import {JSONSchema} from "../utils/types";
 import {getSchemaFromPath} from "../utils/getSchemaFromPath";
@@ -13,5 +13,5 @@ export const useSchema = (schemaKey: string): JSONSchema | null => {
         () => formStore.getState().schema,
         () => formStore.getInitialState().schema
     );
-    return getSchemaFromPath(schema, schemaKey, ".");
+    return useMemo(() => getSchemaFromPath(schema, schemaKey, "."), [schema, schemaKey]);
 }
