@@ -1,34 +1,20 @@
-import React, {createContext, useContext, useRef} from "react";
-import {UseBoundStore, useStore} from "zustand/react";
+"use client";
+import React, {createContext, useRef} from "react";
 import {JSONSchema} from "../utils/types";
-import {createFormStore, FormStore} from "../store/createFormStore";
-import get from "lodash/get";
-import type {StoreApi} from "zustand/vanilla";
+import {createFormStore, FormStoreApi} from "../store/createFormStore";
+import {Ajv} from "ajv";
 
-export const FormContext = createContext<UseBoundStore<StoreApi<FormStore>> | undefined>(undefined);
+export const FormContext = createContext<FormStoreApi | undefined>(undefined);
 
 export interface FormProviderProps {
     schema: JSONSchema;
-    data: Record<string, any>;
-    context?: Record<string, any>;
+    data: any;
+    context?: any;
+    validator?: Ajv;
     children: React.ReactNode;
 }
 
-export function FormProvider({schema, data, context, children}: FormProviderProps) {
-    const form = useRef(createFormStore({schema, data, context})).current;
-    return <FormContext.Provider value={form}>{children}</FormContext.Provider>
+export function FormProvider({schema, data, context, validator, children}: FormProviderProps) {
+    const formStoreApi = useRef(createFormStore({schema, data, context, validator})).current;
+    return <FormContext.Provider value={formStoreApi}>{children}</FormContext.Provider>
 }
-
-export const useForm = (schemaKey: string) => {
-    const formStore = useContext(FormContext);
-    if(!formStore) {
-        throw Error("useForm must be used within a FormProvider");
-    }
-    return {
-        schema: useStore(formStore, (state) =>  get(state.schema, schemaKey) as JSONSchema), // FIXME: to get schema based on schema key
-        data: useStore(formStore, (state) => get(state.data, schemaKey)),
-        context: useStore(formStore, (s) => s.context),
-        validator: useStore(formStore, (s) => s.validator),
-    };
-}
-

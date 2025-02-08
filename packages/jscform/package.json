@@ -56,8 +56,7 @@
     "p-map": "^7.0.2",
     "p-reduce": "^3.0.0",
     "react": "^19.0.0",
-    "use-deep-compare-effect": "^1.8.1",
-    "zustand": "^5.0.3"
+    "rxjs": "^7.8.1"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17 || ^18 || ^19"

@@ -1,9 +1,9 @@
 import {JSONSchema} from "./types";
 
 
-export function getSchemaFromPath(schema: JSONSchema, path: string) {
+export function getSchemaFromPath(schema: JSONSchema, path: string, splitChar: string = "/"): JSONSchema | null {
     if (!path) return schema;
-    let segments = path.split(/[\/.]/);
+    let segments = path.split(splitChar);
     // Account for leading `/` or `.`
     if (!segments[0]) segments = segments.slice(1);
     return getSchema(schema, segments);

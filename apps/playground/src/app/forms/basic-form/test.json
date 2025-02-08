@@ -1,27 +1,80 @@
 {
-    "type": "object",
-    "ui:widget": "Col3Layout",
+  "type": "object",
+  "ui:widget": {
+    "widget": "Col3Layout"
+  },
+  "properties": {
+    "firstName": {
+      "title": "First Name",
+      "type": "string",
+      "ui:widget": {
+        "widget": "Input"
+      }
+    },
+    "middleName": {
+      "title": "Middle Name",
+      "type": "string",
+      "ui:widget": {
+        "widget": "Input"
+      }
+    },
+    "lastName": {
+      "title": "Last Name",
+      "type": "string",
+      "ui:widget": {
+        "widget": "Input"
+      }
+    },
+    "isSelf": {
+      "title": "Is Self",
+      "type": "boolean",
+      "ui:widget": {
+        "widget": "Checkbox"
+      },
+      "default": false
+    }
+  },
+  "required": [
+    "lastName"
+  ],
+  "if": {
     "properties": {
-        "firstName": {
-            "title": "First Name",
-            "type": "string",
-            "ui:widget": "Input",
-            "default": "John"
-        },
-        "middleName": {
-            "title": "Middle Name",
-            "type": "string",
-            "ui:widget": "Input",
-            "default": "S."
-        },
-        "lastName": {
-            "title": "Last Name",
-            "type": "string",
-            "ui:widget": "Input",
-            "default": "Doe"
-        }
+      "isSelf": {
+        "const": true
+      }
     },
     "required": [
-        "lastName"
+      "isSelf"
     ]
+  },
+  "then": {
+    "properties": {
+      "otherFirstName": {
+        "title": "Other First Name",
+        "type": "string",
+        "ui:widget": {
+          "widget": "Input"
+        }
+      },
+      "otherMiddleName": {
+        "title": "Other Middle Name",
+        "type": "string",
+        "ui:widget": {
+          "widget": "Input"
+        }
+      },
+      "otherLastName": {
+        "title": "Other Last Name",
+        "type": "string",
+        "ui:widget": {
+          "widget": "Input"
+        }
+      }
+    },
+    "required": [
+      "otherFirstName",
+      "otherMiddleName",
+      "otherLastName"
+    ]
+  }
 }
