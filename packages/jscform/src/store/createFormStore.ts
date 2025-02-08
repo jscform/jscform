@@ -58,9 +58,6 @@ export const createFormStore = ({schema, context, data, validator = ajv}: FormSt
         })();
     }
 
-    state.subscribe((value) => {
-        console.log("State updated", {schema: value.schema, data: value.data});
-    });
     return {
         subscribe,
         getState,

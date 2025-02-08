@@ -1,4 +1,3 @@
-"use client";
 import React, {createContext, useRef} from "react";
 import {JSONSchema} from "../utils/types";
 import {createFormStore, FormStoreApi} from "../store/createFormStore";

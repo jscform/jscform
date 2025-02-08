@@ -1,31 +1,31 @@
-"use client";
-import React, {ReactElement} from "react";
+import React, {memo, ReactElement} from "react";
 import {PROPERTIES_KEY, UI_WIDGET} from "../utils/constants";
 import {globalRegistry} from "../createRegistry";
-import {useControl} from "../hooks/useControl";
+import {useSchema} from "../hooks/useSchema";
 
 interface DynamicUIComponentProps {
-    schemaKey: string;
+    schemaKey?: string;
     children?: ReactElement;
 }
 
-export default function DynamicUIComponent({schemaKey = ""}: DynamicUIComponentProps) {
-    const {schema} = useControl(schemaKey);
-    if(!schema) {
+export const DynamicUIComponent = memo(({schemaKey = ""}: DynamicUIComponentProps) => {
+    const schema = useSchema(schemaKey);
+    if (!schema) {
         return null;
     }
     if (!schema[UI_WIDGET]) {
         throw Error(`${UI_WIDGET} property missing for "${schemaKey}"`);
     }
+    const uiWidget = schema[UI_WIDGET];
+
     if (!schema[PROPERTIES_KEY]) {
-        const uiWidget = schema[UI_WIDGET];
         const Widget = globalRegistry[uiWidget.widget];
         if (!Widget) {
             throw Error(`Widget "${uiWidget.widget}" not found in registry`);
         }
         return <Widget {...schema} {...uiWidget} name={schemaKey}></Widget>
     }
-    const uiWidget = schema[UI_WIDGET];
+
     const ContainerComponent = globalRegistry[uiWidget.widget] || React.Fragment;
     const childComponents = []
     for (const property of Object.keys(schema[PROPERTIES_KEY])) {
@@ -37,4 +37,4 @@ export default function DynamicUIComponent({schemaKey = ""}: DynamicUIComponentP
         />)
     }
     return (<ContainerComponent>{childComponents}</ContainerComponent>)
-}
+});
