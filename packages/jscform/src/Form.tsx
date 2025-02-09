@@ -13,7 +13,12 @@ export interface FormProps {
 }
 
 export function Form({schema, data, context, validator}: FormProps) {
+    // const onRender = (id: string, phase: string, actualDuration: number) => {
+    //     console.log({id, phase, actualDuration})
+    // }
     return <FormProvider data={data} schema={schema} context={context} validator={validator}>
-        <DynamicUIComponent />
+        {/*<Profiler id={"DynamicComponent"} onRender={onRender}>*/}
+            <DynamicUIComponent/>
+        {/*</Profiler>*/}
     </FormProvider>
 }

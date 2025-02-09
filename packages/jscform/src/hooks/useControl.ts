@@ -7,6 +7,7 @@ import {getSchemaFromPath} from "../utils/getSchemaFromPath";
 export interface UseControlApi {
     schema: JSONSchema | null;
     value: any;
+    errors: any[];
     context: any;
     validator: any;
     onChange: (val: any) => void;
@@ -28,6 +29,7 @@ export const useControl = (schemaKey: string): UseControlApi => {
     return {
         schema: getSchemaFromPath(store.schema, schemaKey, "."),
         value: get(store.data, schemaKey.split(".")),
+        errors: get(store.errors, schemaKey.split(".")),
         context: formStore.context,
         validator: formStore.validator,
         onChange,

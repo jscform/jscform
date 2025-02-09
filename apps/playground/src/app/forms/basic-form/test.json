@@ -1,4 +1,5 @@
 {
+  "$async": true,
   "type": "object",
   "ui:widget": {
     "widget": "Col3Layout"
@@ -31,7 +32,7 @@
       "ui:widget": {
         "widget": "Checkbox"
       },
-      "default": true
+      "default": false
     }
   },
   "required": [
@@ -49,32 +50,43 @@
   },
   "then": {
     "properties": {
-      "otherFirstName": {
-        "title": "Other First Name",
-        "type": "string",
+      "otherPerson": {
+        "type": "object",
         "ui:widget": {
-          "widget": "Input"
-        }
-      },
-      "otherMiddleName": {
-        "title": "Other Middle Name",
-        "type": "string",
-        "ui:widget": {
-          "widget": "Input"
-        }
-      },
-      "otherLastName": {
-        "title": "Other Last Name",
-        "type": "string",
-        "ui:widget": {
-          "widget": "Input"
-        }
+          "widget": "Col3Layout"
+        },
+        "properties": {
+          "otherFirstName": {
+            "title": "Other First Name",
+            "type": "string",
+            "ui:widget": {
+              "widget": "Input"
+            }
+          },
+          "otherMiddleName": {
+            "title": "Other Middle Name",
+            "type": "string",
+            "ui:widget": {
+              "widget": "Input"
+            }
+          },
+          "otherLastName": {
+            "title": "Other Last Name",
+            "type": "string",
+            "ui:widget": {
+              "widget": "Input"
+            }
+          }
+        },
+        "required": [
+          "otherFirstName",
+          "otherMiddleName",
+          "otherLastName"
+        ]
       }
     },
     "required": [
-      "otherFirstName",
-      "otherMiddleName",
-      "otherLastName"
+      "otherPerson"
     ]
   }
 }

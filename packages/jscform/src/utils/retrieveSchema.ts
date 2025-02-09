@@ -1,15 +1,7 @@
-import get from 'lodash/get';
-import isEqual from 'lodash/isEqual';
-import set from 'lodash/set';
-import times from 'lodash/times';
-import transform from 'lodash/transform';
-import merge from 'lodash/merge';
-import flattenDeep from 'lodash/flattenDeep';
-import uniq from 'lodash/uniq';
+import { get, isEqual, set, transform, merge, flattenDeep, uniq, cloneDeep, memoize } from 'lodash';
 import type {Options} from 'json-schema-merge-allof';
 import mergeAllOf, * as merger from 'json-schema-merge-allof';
 import pMap from "p-map";
-import {cloneDeep} from "lodash";
 import {
     ADDITIONAL_PROPERTIES_KEY,
     ADDITIONAL_PROPERTY_FLAG,
@@ -191,20 +183,27 @@ export async function resolveSchema(validator: ValidatorType, schema: JSONSchema
  * @param listOfLists - The list of lists of elements that represent the allOf, anyOf or oneOf resolved values in order
  * @returns - The list of all permutations of schemas for a set of `xxxOf`s
  */
-export function getAllPermutationsOfXxxOf(listOfLists: JSONSchema[][]) {
-    return listOfLists.reduce<JSONSchema[][]>(
-        (permutations, list) => {
-            // When there are more than one set of schemas for a row, duplicate the set of permutations and add in the values
-            if (list.length > 1) {
-                return list.flatMap((element) => times(permutations.length, (i) => [...permutations[i]].concat(element)));
-            }
-            // Otherwise just push in the single value into the current set of permutations
-            permutations.forEach((permutation) => permutation.push(list[0]));
-            return permutations;
-        },
-        [[]] as JSONSchema[][] // Start with an empty list
-    );
-}
+// Memoized version of getAllPermutationsOfXxxOf for better performance
+const memoizedGetAllPermutations = memoize(
+    (listOfLists: JSONSchema[][]) => {
+        return listOfLists.reduce<JSONSchema[][]>(
+            (permutations, list) => {
+                if (list.length > 1) {
+                    return list.flatMap((element) => 
+                        Array.from({ length: permutations.length }, 
+                            (_, i) => [...permutations[i]].concat(element))
+                    );
+                }
+                permutations.forEach((permutation: JSONSchema[]) => permutation.push(list[0]));
+                return permutations;
+            },
+            [[]] as JSONSchema[][]
+        );
+    },
+    (listOfLists: JSONSchema[][]) => JSON.stringify(listOfLists)
+);
+
+export const getAllPermutationsOfXxxOf = memoizedGetAllPermutations;
 
 /** Resolves all references within a schema and then returns the `retrieveSchemaInternal()` if the resolved schema is
  * actually different than the original. Passes the `expandAllBranches` flag down to the `retrieveSchemaInternal()`
